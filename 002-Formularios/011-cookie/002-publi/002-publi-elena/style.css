@@ -1,0 +1,34 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    text-align: center;
+    font-family: sans-serif;
+}
+#search{
+    max-width: 600px;
+    margin: 20px auto;
+}
+main{
+    padding: 1% 10%;
+}
+#logo img{
+    width: 100%;
+}
+
+input:not([type="submit"]){
+    width: 70%;
+    padding: 10px;
+}
+input[type="submit"]{
+    padding: 10px;
+    background: #222;
+    color:#fff;
+    border:none;
+    width: 20%;
+}
+section img{
+    margin: 10px;
+}

@@ -25,13 +25,16 @@ $nfilas=  mysqli_num_rows($result);
         <?php
         //Si no devuelve registros querrá decir que no hay elementos para pintar
         if ($nfilas > 0) {
-            //Creamos un bucle que dartá tantas vueltas como número de filas haya en la tabla pedida con la query, para así en cada vuelta, convertir cada registro en un array asociativo y pintar los valores accediendo a travé de las claves.
-            for ($i = 0; $i < $nfilas; $i++) { 
+            //Creamos un bucle que dartá tantas vueltas como número de filas haya en la tabla pedida con la query, para así en cada vuelta, convertir cada registro en un array asociativo y pintar los valores accediendo a travé de las claves.?>
+        <ul>
+            <?php for ($i = 0; $i < $nfilas; $i++) { 
                 $fila=  mysqli_fetch_array($result)?>
         
-        <p><?= $fila["producto"]?> | <?= $fila["precio"]?>€</p>
-            <?php }
-        } else {
+        <li><?= $fila["producto"]?> | <?= $fila["precio"]?>€</li>
+        
+            <?php } ?>
+        </ul>
+        <?php } else {
             $mng = "No hay productos";
         }
         ?>

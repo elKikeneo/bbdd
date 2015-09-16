@@ -2,10 +2,9 @@
 //1-2 conectamos
     include './inc/connect.php';
     
-    //Validación de mensaje creado por insert 
+    //Validación de mensaje devuelto por insert 
     $mng="";
     if(isset($_GET["c"])){
-        
         switch ($_GET[c]){ //$error
 	case 1:
 	    $mng="Contacto añadido correctamente";
@@ -15,6 +14,9 @@
 	    break;
 	case 3:
 	    $mng="Debes rellenar nombre y teléfono";
+	    break;
+	case 4:
+	    $mng="Ya existe un contacto con ese número";
 	    break;
     }
     }
@@ -44,7 +46,7 @@
         <h1>Contactos</h1>
         
             <?php 
-            //3- petición
+            //3- petición de contactos
             $sql = "select * from contactos order by nombre asc";
             $result = mysqli_query($link, $sql);
             
@@ -55,20 +57,24 @@
             <?php 
                 if ($nfilas>0) { ?>
                    
-                    <?php for($i=0;$i<$nfilas;$i++) {?>
+                <?php for ($i = 0; $i < $nfilas; $i++) { ?>
                     <!--Nos ayudamos del bucle para convertir cada registro de la tabla almacenada en $result en un array asociativo-->
-                        <?php $fila=  mysqli_fetch_array($result)?>
-            <article>
-                <img src="<?= $fila["foto"]?>" width="50">
-                <p><?=$fila["nombre"]?> <?=$fila["apellidos"]?> <br> <?=$fila["telefono"]?> | <?=$fila["email"]?></p>
-            </article>
-            
-            <?php } ?>
-            
+                    <?php $fila = mysqli_fetch_array($result) ?>
+                    <article>
+                        <img src="<?= $fila["foto"] ?>" width="50">
+                        <p>
+                            <?= $fila["nombre"] ?> <?= $fila["apellidos"] ?> 
+                            <br> 
+                            <?= $fila["telefono"] ?> | <?= $fila["email"] ?>
+                        </p>
+                    </article>
+
                 <?php } ?>
             
+            <?php }else{ ?>
+                    <p>No hay contactos</p>
+            <?php } ?>
             
-                    
         </section>
         
     </center>

@@ -10,14 +10,23 @@ if( (isset($nombre)&&!empty($nombre)) && (isset($tlfn)&&!empty($tlfn))){
         $foto="http://comuni-k.net/pagina/wp-content/uploads/2013/09/avatar.png";
     }
     
-    $sql="update contactos set nombre='$nombre',apellidos='$apellidos',telefono='$tlfn',email='$email',foto='$foto' where id=$id";
+    $sql="select * from contactos where telefono='$tlfn' AND id!=$id";
     $result=mysqli_query($link, $sql);
-    if($result){
-        $c=7;
+    $nfilas=mysqli_num_rows($result);
+    if($nfilas>0){
+        header("location:editar.php?id=$id&c=2");
     }else{
-        $c=8;
+        
+        $sql="update contactos set nombre='$nombre',apellidos='$apellidos',telefono='$tlfn',email='$email',foto='$foto' where id=$id";
+        $result=mysqli_query($link, $sql);
+        if($result){
+            $c=7;
+        }else{
+            $c=8;
+        }
+        header("location:index.php?c=$c");
+        
     }
-    header("location:index.php?c=$c");
     
 }else{
     header("location:editar.php?id=$id&c=1");

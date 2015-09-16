@@ -19,16 +19,16 @@ if(isset($_GET["c"])){
             $mng="Ya existe un contacto con ese número";
             break;
         case 5:
-            $mng="Se ha borrado correctamente";
+            $mng="Contacto eliminado";
             break;
         case 6:
-            $mng="No se ha borrado";
+            $mng="Error al eliminar";
             break;
         case 7:
-            $mng="Se ha editado correctamente";
+            $mng="Contacto modificado";
             break;
         case 8:
-            $mng="No se ha podido hacer los cambios";
+            $mng="Error al modificar contacto";
             break;
     }
 }
@@ -50,6 +50,13 @@ if(isset($_GET["c"])){
             <input type="text" name="tlfn" placeholder="Teléfono" required>
             <input type="email" name="email" placeholder="Email">
             <input type="text" name="foto" placeholder="Foto">
+            <select>
+                <option>Trabajo</option>
+                <option>Amigos</option>
+                <option>Familia</option>
+                
+                <option>No hay categorias</option>
+            </select>
             
             <input type="submit" value="Guardar">
         </form>
@@ -70,7 +77,7 @@ if(isset($_GET["c"])){
             <?php if($nfilas>0){ ?>
             
                 <?php for($i=0;$i<$nfilas;$i++){ ?>
-                    <!--Nos ayudamos del bucle para convertir cada registro de la tabla almacenada en $result en un array asociativo-->
+                    <!--Nos ayudamos del bucle para convertui cada registro de la tabla almacenada en $result en un array asociativo-->
                     <?php $fila=mysqli_fetch_array($result) ?>
                     <article>
                         <img src="<?=$fila["foto"]?>" width="50">
@@ -80,8 +87,8 @@ if(isset($_GET["c"])){
                             <?=$fila["telefono"]?> | <?=$fila["email"]?>
                             <br>
                             <a href="editar.php?id=<?=$fila['id']?>">Editar</a> | 
-                            <a onclick="if(!confirm('¿Seguro que quieres borrar contacto?'))return false" href="delete.php?id=<?=$fila['id']?>">Eliminar</a>
-                        </p>          
+                            <a onclick="if(!confirm('¿?'))return false" href="delete.php?id=<?=$fila['id']?>">Eliminar</a>
+                        </p>      
                     </article>
                 <?php } ?>
             
@@ -91,7 +98,9 @@ if(isset($_GET["c"])){
             
         </section>        
         
+        
     </center>
+        
         
     </body>
 </html>

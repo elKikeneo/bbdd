@@ -11,3 +11,4 @@ if($result){
     $c=6;
 }
 header("location:index.php?c=$c");
+

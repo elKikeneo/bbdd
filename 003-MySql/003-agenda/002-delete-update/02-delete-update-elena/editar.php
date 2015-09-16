@@ -7,6 +7,9 @@ if(isset($_GET["c"])){
         case 1:
             $mng="Debes rellenar nombre y teléfono";
             break;
+        case 2:
+            $mng="Ya existe un contacto con ese teléfono";
+            break;
     }
 }
 

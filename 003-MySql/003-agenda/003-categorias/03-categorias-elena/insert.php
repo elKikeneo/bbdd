@@ -31,6 +31,7 @@ if( (isset($nombre)&&!empty($nombre)) && (isset($tlfn)&&!empty($tlfn)) ){
 }else{
     $c=3;
 }
+
 header("location:index.php?c=$c");
 
 

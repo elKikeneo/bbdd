@@ -13,5 +13,4 @@ if (isset($_GET['id'])){
         $c=6;
     }
 }
-
 header("location:index.php?c=$c");

@@ -94,6 +94,5 @@ if(isset($_GET["c"])){
         
     </center>
         
-        
     </body>
 </html>

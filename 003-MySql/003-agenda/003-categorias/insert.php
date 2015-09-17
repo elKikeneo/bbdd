@@ -3,7 +3,7 @@
 include './inc/connect.php';
 
 //Controlar que los campos que he establecido cómo obligatorios en el html, traigan  datos
-extract($_POST); //$nombre, $apellidos,$tlfn,$email,$foto
+extract($_POST); //$nombre, $apellidos, $tlfn, $email, $foto, $id_categoria
 if( (isset($nombre)&&!empty($nombre)) && (isset($tlfn)&&!empty($tlfn)) ){
     
     //Si no ponen foto al contacto, le ponemos una por defecto
@@ -12,7 +12,7 @@ if( (isset($nombre)&&!empty($nombre)) && (isset($tlfn)&&!empty($tlfn)) ){
     }
     
     //Antes de insertar, vamos a comprobar si ya existe un contacto con el mismo tlfn, para evitar así duplicidad de registros
-    $sql="select * from contactos where telefono='$tlfn'";
+    $sql="select * from contactos where telefono='$tlfn'"; //aquí está comparando con el ingreso de mi form..
     $result=mysqli_query($link, $sql);
     //vamos a contar el número de registros de la tabla devuelta, ya que si son >0 quiere decir que efectivamente ya existe un contacto con ese teléfono
     $nfilas=mysqli_num_rows($result);
@@ -20,7 +20,7 @@ if( (isset($nombre)&&!empty($nombre)) && (isset($tlfn)&&!empty($tlfn)) ){
         $c=4;
     }else{
         //Insertar contacto
-        $sql="INSERT INTO contactos (nombre,apellidos,telefono,email,foto) VALUES ('$nombre','$apellidos','$tlfn','$email','$foto')";
+        $sql="INSERT INTO contactos (nombre,apellidos,telefono,email,foto,id_categoria) VALUES ('$nombre','$apellidos','$tlfn','$email','$foto',$id_categoria)";
         $result = mysqli_query($link, $sql);
         if($result){
             $c=1;

@@ -3,7 +3,7 @@
 include './inc/connect.php';
 
 //Controlar que los campos que he establecido cómo obligatorios en el html, traigan  datos
-extract($_POST); //$nombre, $apellidos,$tlfn,$email,$foto
+extract($_POST); //$nombre, $apellidos,$tlfn,$email,$foto,$id_categoria
 if( (isset($nombre)&&!empty($nombre)) && (isset($tlfn)&&!empty($tlfn)) ){
     
     //Si no ponen foto al contacto, le ponemos una por defecto
@@ -20,7 +20,7 @@ if( (isset($nombre)&&!empty($nombre)) && (isset($tlfn)&&!empty($tlfn)) ){
         $c=4;
     }else{
         //Insertar contacto
-        $sql="INSERT INTO contactos (nombre,apellidos,telefono,email,foto) VALUES ('$nombre','$apellidos','$tlfn','$email','$foto')";
+        $sql="INSERT INTO contactos (nombre,apellidos,telefono,email,foto,id_categoria) VALUES ('$nombre','$apellidos','$tlfn','$email','$foto',$id_categoria)";
         $result = mysqli_query($link, $sql);
         if($result){
             $c=1;

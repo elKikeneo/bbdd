@@ -50,12 +50,22 @@ if(isset($_GET["c"])){
             <input type="text" name="tlfn" placeholder="Teléfono" required>
             <input type="email" name="email" placeholder="Email">
             <input type="text" name="foto" placeholder="Foto">
-            <select>
-                <option>Trabajo</option>
-                <option>Amigos</option>
-                <option>Familia</option>
-                
-                <option>No hay categorias</option>
+            <select name="id_categoria">
+                <?php
+                $sql="select * from categorias order by categoria";
+                $result=mysqli_query($link, $sql);
+                $nfilas=  mysqli_num_rows($result);
+                if($nfilas>0){?>
+                    <option value="0">Sin categoría</option>
+                    <?php for($i=0;$i<$nfilas;$i++){ ?>
+                        <?php $fila=  mysqli_fetch_array($result) ?>
+                        <option value="<?=$fila['id']?>">
+                                <?=$fila['categoria']?>
+                        </option>
+                    <?php } ?>
+                <?php }else{ ?>
+                    <option value="0">No hay categorías</option>
+                <?php } ?>
             </select>
             
             <input type="submit" value="Guardar">
@@ -67,7 +77,7 @@ if(isset($_GET["c"])){
         <h1>Contactos</h1>
         <?php
         //3-Petición Contactos
-        $sql="select * from contactos order by nombre asc";
+        $sql="select contactos.* ,categorias.categoria from contactos left join categorias on contactos.id_categoria=categorias.id order by nombre asc";
         $result = mysqli_query($link, $sql);
         //4-Obtener y procesar resultados
         $nfilas = mysqli_num_rows($result);
@@ -85,6 +95,12 @@ if(isset($_GET["c"])){
                             <?=$fila["nombre"]?> <?=$fila["apellidos"]?>  
                             <br>
                             <?=$fila["telefono"]?> | <?=$fila["email"]?>
+                            <br>
+                            <?php if($fila["id_categoria"]==0){ ?>
+                                <span>Sin categoría</span>
+                            <?php }else{ ?>
+                                <?=$fila["categoria"]?>
+                            <?php } ?>
                             <br>
                             <a href="editar.php?id=<?=$fila['id']?>">Editar</a> | 
                             <a onclick="if(!confirm('¿?'))return false" href="delete.php?id=<?=$fila['id']?>">Eliminar</a>

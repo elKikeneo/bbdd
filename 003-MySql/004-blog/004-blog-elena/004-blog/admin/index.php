@@ -1,25 +1,43 @@
 <?php
+session_start();
 $mng="";
-if($_POST){
-    if( (isset($_POST['email']) && !empty($_POST['email'])) &&  (isset($_POST['password']) && !empty($_POST['password'])) ){
-        
-        include './inc/connect.php';
-        extract($_POST);
-        
-        $pass_code=sha1($password);
-        $sql="select * from usuarios where email='$email' and password='$pass_code' ";
-        $result=mysqli_query($link, $sql);
-        $nfilas=  mysqli_num_rows($result);
-        if($nfilas>0){
-            header("location:perfil.php");
+
+if(isset($_SESSION['id_usuario'])){
+    header("location:perfil.php");
+}else{
+    
+    if($_POST){
+
+        if( (isset($_POST['email']) && !empty($_POST['email'])) &&  (isset($_POST['password']) && !empty($_POST['password'])) ){
+
+            include './inc/connect.php';
+            extract($_POST);
+
+            $pass_code=sha1($password);
+            $sql="select * from usuarios where email='$email' and password='$pass_code' ";
+            $result=mysqli_query($link, $sql);
+            $nfilas=  mysqli_num_rows($result);
+            if($nfilas>0){
+
+                $fila=  mysqli_fetch_array($result);
+                $_SESSION['id_usuario']=$fila['id'];
+
+                header("location:perfil.php");
+            }else{
+                $mng="Email o contraseña incorrectos";
+            }
+
         }else{
-            $mng="Email o contraseña incorrectos";
+            $mng="Debes rellenar todos los datos";
         }
-        
-    }else{
-        $mng="Debes rellenar todos los datos";
     }
+    
+    
 }
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html>

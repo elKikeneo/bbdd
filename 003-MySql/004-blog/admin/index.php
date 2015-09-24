@@ -8,7 +8,7 @@ if($_POST){
         
         
     }else{
-        $mng="Debes rellenar todos los datos"
+        $mng="Debes rellenar todos los datos";
     }
 }
 

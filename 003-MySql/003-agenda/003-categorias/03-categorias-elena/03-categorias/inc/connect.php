@@ -4,7 +4,7 @@
 $host="localhost";
 $user="root";
 $password="";
-$database="m108_blog";
+$database="m108_agenda";
 
 //1-Establecemos conexión
 $link = mysqli_connect($host, $user, $password) or die ("Error en la conexión con el servidor");

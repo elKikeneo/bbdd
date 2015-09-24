@@ -18,15 +18,10 @@ if($_POST){
             $result=mysqli_query($link, $sql);
             if($result){
                 
-                $header = "To: $nombre <$email>"."\r\n";
-                $header .= "From: Admin <no-reply@miblog.com>"."\r\n";
-                $header .= "MIME-Version: 1.0\r\n";
-                $header .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-                if(mail($email, "Alta de usuario", "Ha sido registrado correctamente en el blog M108 con el email $email y la contraseña $password. Y tu link de activación es <a href='activar.php?email=$email'>Activar</a>", $header)){
-                    $mng="Se te ha enviado más info al correo";
-                }else{
-                    $mng="Usuario registrado correctamente pero hemos tenido problemas en el envío del email";
-                }
+                //si se registra el usuario le enviamos un email
+                $asunto="Alta de usuario";
+                $mensaje="Ha sido registrado correctamente en el blog M108 con el email $email y la contraseña $password. Y tu link de activación es <a href='activar.php?email=$email'>Activar</a>";
+                include './inc/mail.php';
                 
                 
             }else{

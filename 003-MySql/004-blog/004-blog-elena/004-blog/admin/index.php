@@ -1,6 +1,7 @@
 <?php
 session_start();
 $mng="";
+$cssError="";
 
 if(isset($_SESSION['id_usuario'])){
     header("location:perfil.php");
@@ -25,10 +26,12 @@ if(isset($_SESSION['id_usuario'])){
                 header("location:perfil.php");
             }else{
                 $mng="Email o contraseña incorrectos";
+                $cssError=0;
             }
 
         }else{
             $mng="Debes rellenar todos los datos";
+            $cssError=0;
         }
     }
     
@@ -64,7 +67,7 @@ if(isset($_SESSION['id_usuario'])){
         </div>
         
         <!--Mensaje---------------------------------->
-        <span class="mng_"><?=$mng?></span>
+        <?php include './col/mng.php'; ?>
        
     </body>
 </html>

@@ -20,7 +20,7 @@ extract($fila);
         <p><?=$nombre?> | <?=$email?></p>
     </div>
     <div class="col20">
-        <a href="" class="btn edit">editar</a>
+        <a href="userconfig.php" class="btn edit"></a>
     </div>
 </div>
 

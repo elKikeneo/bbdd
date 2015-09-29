@@ -1,4 +1,5 @@
 <?php
+$cssError="";
 $mng="";
 if($_POST){
     
@@ -32,16 +33,19 @@ if($_POST){
                 
             }else{
                 $mng="Hemos tenido problemas en la recuperación de la pass.Contacte con el administrador";
+                $cssError=0;
             }
             
             
         }else{
-           $mng="No existe usuario con ese email"; 
+           $mng="No existe usuario con ese email";
+           $cssError=0;
         }
         
         
     }else{
         $mng="Debes rellenar datos";
+        $cssError=0;
     }
     
 }
@@ -69,9 +73,7 @@ if($_POST){
         </div>
         
         <!--Mensaje---------------------------------->
-        <span class="mng_">
-            <?=$mng?>
-        </span>
+        <?php include './col/mng.php'; ?>
        
     </body>
 </html>

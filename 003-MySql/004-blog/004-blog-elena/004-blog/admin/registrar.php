@@ -1,4 +1,5 @@
 <?php
+$cssError="";
 $mng="";
 if($_POST){
     if( (isset($_POST['email']) && !empty($_POST['email'])) &&  (isset($_POST['password']) && !empty($_POST['password'])) &&  (isset($_POST['nombre']) && !empty($_POST['nombre'])) ){
@@ -11,6 +12,7 @@ if($_POST){
         $nfilas=  mysqli_num_rows($result);
         if($nfilas>0){
             $mng="Ya existe usuario. Inténtalo de nuevo";
+            $cssError=0;
         }else{
             //logaritmo de reducción criptográfica. La codificación "md5()" da 128bits mientras que "sha1()" da 160bits, por lo que es más dificil de corromper
             $pass_code=sha1($password);
@@ -26,12 +28,14 @@ if($_POST){
                 
             }else{
                 $mng="Error en el registro. Contacte con el <a href='mailto:..'>administrador</a>.";
+                $cssError=0;
             }
         }
         
         
     }else{
         $mng="Debes rellenar todos los datos";
+        $cssError=0;
     }
 }
 ?>
@@ -60,9 +64,7 @@ if($_POST){
         </div>
         
         <!--Mensaje---------------------------------->
-        <span class="mng_">
-            <?=$mng?>
-        </span>
+        <?php include './col/mng.php'; ?>
        
     </body>
 </html>

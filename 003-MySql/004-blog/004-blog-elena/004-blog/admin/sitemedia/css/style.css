@@ -1,3 +1,12 @@
+@font-face{
+    font-family: "fontello";
+    src: url(../font/icons.eot) format("embedded-opentype");
+    src: url(../font/icons.ttf) format("truetype"),
+            url(../font/icons.woff) format("woff"),
+            url(../font/icons.svg) format("svg");
+}
+
+
 /*GLOBALES
 ===============================*/
 *{
@@ -72,78 +81,226 @@ input:focus{
     display: block;
 }
 
+/*MNG*/
+span[class^="mng_"]{
+    display: block;
+    width: 300px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 10px;
+    text-align: center;
+    color:#666;
+    font-size: .8em;
+    box-shadow: 0px 0px 20px rgba(0,0,0,.1);
+}
+.mng_{
+    display: none !important;
+}
+.mng_1{
+    border-left: 5px solid teal;
+}
+.mng_0{
+    border-left: 5px solid red;
+}
+
 /*PANEL
-===========================*/
+================================*/
 .main{
     width: 80%;
     margin: 0 auto;
 }
 div[class^="col"]{
-    float:left;
+    float: left;
 }
-.col80{width: 80%}
-.col20{width: 20%}
+.col80{
+    width: 80%;
+}
+.col20{
+    width: 20%;
+}
 
-/*HEADER*/
+
+/*HEADER
+============================*/
 header{
     background: #222;
     color:#fff;
     padding: 10px 0;
     overflow: hidden;
-    line-height: 2em;
 }
 header .logo{
     float: left;
-}
-header .logo h2{
-    letter-spacing: -3px;
+    letter-spacing: -2px;
+    line-height: 2.3em;
 }
 header .logo span{
-    color:#E60082;
+    color: #e60082;
 }
 header nav{
     float: right;
 }
 header nav li{
-    display: inline-block;
-    margin-right: 10px;
-}
-header nav a{
-    color:#fff;
-    font-size: .8em;
+    float: left;
+    margin-left: 10px;
+    line-height: 2.3em;
 }
 header nav li:last-child{
-    border-left: 1px solid rgba(255,255,255,.4);
+    border-left: 1px solid rgba(255,255,255,.8);
     padding-left: 10px;
-    margin-right: 0;
 }
-/*CONTENIDO*/
+header nav li a{
+    color: #fff;
+    font-size: .8em;
+}
+
+/*CONTENIDO
+===========================*/
+::selection{
+    background: #e60082;
+    color:#fff;
+}
 main{
     width: 80%;
     margin: 20px auto;
-    background: #fff;
     padding: 20px;
     min-height: 600px;
-    border:1px solid #ccc;
+    background: #fff;
 }
-/*FOOTER*/
-footer{
-    font-size: .7em;
-    text-align: right;
-    font-style: italic;
-    color:#666;
-}
-
-::selection{
-    background: #E60082;
-    color:#fff;
-}
-
-
-/*PERFIL
-======================*/
+/*PERFIL*/
 .datos{
+    border-bottom: 1px solid #ddd;
     padding: 20px 0;
-    font-size: .9em;
     overflow: hidden;
+    font-size: .9em;
+    color:#333;
+}
+
+/*ENTRADAS*/
+.orden{
+    border-bottom: 3px solid  #ededed;
+    padding: 10px 0;
+    font-size: .9em;
+    margin-top: 10px;
+}
+.entradas h3{
+    color: #e60082;
+}
+.entradas p{
+    color:#333;
+    font-size: .9em;
+}
+.entradas span{
+    font-size: .8em;
+    color:#666;
+    font-style: italic;
+}
+
+/*PAGINACION*/
+.paginacion a{
+    display: inline-block;
+    font-size: 1em;
+    margin-top: 10px;
+}
+.paginacion .active{
+    font-weight: bold;
+    color:#333;
+}
+
+
+
+/*FORMULARIOS*/
+main form{
+    overflow: hidden;
+}
+
+main form label{
+    display: block;
+    font-size: .8em;
+    color:#666;
+    margin-top: 10px;
+    width: 100%;
+}
+main form input{
+    width: 100%;
+    padding: 5px;
+    border:1px solid #ccc;
+    margin-bottom: 10px;
+}
+main form input[type="checkbox"]{
+    width: inherit;
+}
+main form input[type="submit"]{
+    background: #e60082;
+    color:#fff;
+    width: 150px;
+    border:none;
+    padding: 10px;
+    margin-top: 10px;
+    float: right;
+}
+main form textarea{
+    width: 100%;
+    min-height: 200px;
+}
+
+
+/*BOTONES*/
+.btn{
+    display: block;
+    width: 16px;
+    height: 16px;
+}
+.edit:before{
+    font-family: "fontello";
+    content: "\E800";
+    color:#666;
+    font-size: 1.2em;
+}
+.delete:before{
+    font-family: "fontello";
+    content: "\E801";
+    color:#666;
+    font-size: 1.2em;
+}
+.edit:hover, .delete:hover{
+        text-decoration: none;
+}
+.edit:hover:before, .delete:hover:before{
+    color:#e60082;
+}
+
+
+
+/*FOOTER
+===========================*/
+footer{
+    color:#666;
+    text-align: right;
+    font-size: .7em;
+    font-style: italic;
+}
+
+@media (max-width:600px){
+    header .logo{
+        width: 100%;
+        text-align: center;
+    }
+    header nav{
+        width: 100%;
+    }
+    header nav li{
+        width: 20%;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+    header nav li:last-child{
+        border: none;
+        padding: 0;
+    }
+}
+
+
+strong{
+    color: #E60082;
 }

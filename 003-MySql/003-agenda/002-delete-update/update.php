@@ -17,8 +17,6 @@ if ((isset($nombre) && !empty($nombre)) && (isset($tlfn) && !empty($tlfn))) {
         header("location:editar.php?id=$id&c=2");
     } else {
 
-
-
         $sql = "update contactos set nombre='$nombre',apellidos='$apellidos',telefono='$tlfn',email='$email',foto='$foto' where id=$id";
         $result = mysqli_query($link, $sql);
         if ($result) {

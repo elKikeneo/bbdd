@@ -2,7 +2,7 @@
 //Definir variables
 $host="localhost";
 $user="root";
-$password="";
+$password="root";
 $database="m108_productos";
 
 //1-Establecer conexión con el servidor

@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html,body{
+    height: 100%;
+}
+body{
+    background: #333;
+    font: 1em/1.5 sans-serif;
+    color: #fff;
+}
+section{
+    width: 80%;
+    margin: 50px auto;
+}
+h1, h2{
+    text-align: center;
+}
+h1{
+    font-size: 6em;
+    
+}
+h2{
+    font-size: 2em;
+}

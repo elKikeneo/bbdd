@@ -87,7 +87,7 @@ if(isset($_GET["c"])){
             <?php if($nfilas>0){ ?>
             
                 <?php for($i=0;$i<$nfilas;$i++){ ?>
-                    <!--Nos ayudamos del bucle para convertui cada registro de la tabla almacenada en $result en un array asociativo-->
+                    <!--Nos ayudamos del bucle para convertir cada registro de la tabla almacenada en $result en un array asociativo-->
                     <?php $fila=mysqli_fetch_array($result) ?>
                     <article>
                         <img src="<?=$fila["foto"]?>" width="50">
@@ -112,6 +112,8 @@ if(isset($_GET["c"])){
                 <p>No hay contactos</p>
             <?php } ?>
             
+                <!--ESTO ES LA DIRECCIÓN QUE TENGO QUE PONER EN PROPIEDADES PARA QUE PUEDA CARGAR, EL PROYECTO NO ES 001-PHP SINO bbdd, SI NO HAGO ESTO NUNCA CARGARÁ... (Project URL: http://localhost:8888/bbdd/)-->
+                
         </section>        
         
         

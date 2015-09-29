@@ -25,7 +25,7 @@ $nfilas=  mysqli_num_rows($result);
         <?php
         //Si no devuelve registros querrá decir que no hay elementos para pintar
         if ($nfilas > 0) {
-            //Creamos un bucle que dartá tantas vueltas como número de filas haya en la tabla pedida con la query, para así en cada vuelta, convertir cada registro en un array asociativo y pintar los valores accediendo a travé de las claves.?>
+            //Creamos un bucle que dará tantas vueltas como número de filas haya en la tabla pedida con la query, para así en cada vuelta, convertir cada registro en un array asociativo y pintar los valores accediendo a través de las claves.?>
         <ul>
             <?php for ($i = 0; $i < $nfilas; $i++) { 
                 $fila=  mysqli_fetch_array($result)?>

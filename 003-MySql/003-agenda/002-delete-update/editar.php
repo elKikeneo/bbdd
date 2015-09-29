@@ -45,7 +45,10 @@ extract($fila); //$id,$nombre,$apellidos,$telefono,$email,$foto
             <input type="text" name="foto" value="<?=$foto?>" placeholder="Foto">
             <br>
             <input type="submit" value="Guardar">
-        </form>        
+        </form>
+        <p><?=$mng?></p>
+        
+        <br>
         <a href="index.php"><< Volver</a>
                 
     </center>

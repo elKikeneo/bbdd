@@ -45,10 +45,10 @@ if(isset($_GET["c"])){
             <h1>EXCUSAS</h1>
             <h2>Igresa una Nueva Excusa</h2>
             <form action="insert.php" method="post">
-                <!--<textarea name="excusa" cols="100" rows="5" placeholder="Escribe aquí tu excusa..."></textarea>-->
-                <input type="text" name="excusa" placeholder="Escribe aquí tu excusa...">
+                <textarea name="excusa" cols="100" rows="5" placeholder="Escribe aquí tu excusa..."></textarea>
+                <!--<input type="text" name="excusa" placeholder="Escribe aquí tu excusa...">-->
                 <input type="text" name="autor" placeholder="Nombre del autor">
-                <select id="id_categoria">
+                <select name="id_categoria">
                     <?php
                     $sql="select * from categorias order by categoria";
                     $result= mysqli_query($link, $sql);
@@ -56,7 +56,7 @@ if(isset($_GET["c"])){
                     if($nfilas>0){?>
                         <option value="0">Sin categoría</option>
                         <?php for($i=0; $i<$nfilas; $i++){?>
-                            <?php $fila=  mysqli_fetch_array($result) ?>
+                            <?php $fila= mysqli_fetch_array($result) ?>
                             <option value="<?=$fila['id']?>">
                                 <?=$fila['categoria']?>
                             </option>

@@ -4,7 +4,7 @@
 $host="localhost";
 $user="root";
 $password="root";
-$database="excusas";
+$database="excusas1";
 
 //1- Establecemos conexión
 $link = mysqli_connect($host, $user, $password) or die ("Error en la conexión con el servidor");

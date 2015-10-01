@@ -130,7 +130,7 @@ if($cssError==1){
             <label>Texto</label>
             <textarea name="texto"  class="ckeditor"><?=$texto?></textarea>
             <input type="checkbox" name="visible"> 
-            <small>Marcar como no visible </small>
+            <small>No público</small>
             
             <input type="submit" value="Guardar">
       </form>
@@ -140,5 +140,5 @@ if($cssError==1){
 
 
 <script src="sitemedia/js/ckeditor/ckeditor.js" type="text/javascript"></script>
-            
+             
 <?php include './col/footer.php'; ?>      

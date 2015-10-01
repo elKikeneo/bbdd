@@ -16,8 +16,8 @@
                 <nav>
                     <ul>
                         <li><a href="perfil.php">Mi perfil</a></li>
-                        <li><a href="postnueva.php">Nueva</a></li>
-                        <li><a href="posteditar.php">Editar</a></li>
+                        <li><a href="postnueva.php">Nueva entrada</a></li>
+                        <li><a href="postlista.php">Todas las entradas</a></li>
                         <li><a href="postcomments.php">Comentarios</a></li>
                         <li><a href="salir.php">Salir</a></li>
                     </ul>
@@ -28,3 +28,4 @@
         
         <main>
             <h2><?=$title?></h2>
+            

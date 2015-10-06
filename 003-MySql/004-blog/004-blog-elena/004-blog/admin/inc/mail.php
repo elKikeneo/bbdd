@@ -10,4 +10,4 @@ if (mail($email, $asunto, $mensaje, $header)) {
 } else {
     $mng = "Hemos tenido problemas en el envío del email";
     $cssError=0;
-}
+} 

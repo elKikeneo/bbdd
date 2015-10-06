@@ -2,22 +2,32 @@
 include './inc/seguridad.php';
 include './inc/connect.php';
 
-$id_usuario=$_SESSION['id_usuario'];
 include './inc/indice.php';
- 
 
+$id_entrada=$_GET['id_entrada'];
 $mng="";
 $cssError="";
-$titulo="";
-$texto="";
+
+
+$sql="select * from entradas where id=$id_entrada";
+$result=  mysqli_query($link, $sql);
+$fila=  mysqli_fetch_array($result);
+extract($fila); //$id,$titulo,$imagen,$texto,$fecha,$visible
+
+
+            
+
+
 
 if($_POST){
-    //datos de texto:
-    extract($_POST); //$titulo,$texto, $visible (si es que lo marcan)
-    if(isset($visible)){
+    //Datos de texto
+    extract($_REQUEST); //$id_entrada,$titulo,$texto,$visible_edit(si la marcan)
+    if(isset($visible_edit)){
         $visible="no";
+        $checked="checked";
     }else{
         $visible="si";
+        $checked="";
     }
     //datos del fichero:
     $name=$_FILES['archivo']['name'];
@@ -39,100 +49,114 @@ if($_POST){
     //Tam máx
     $sizeMax=70000; //bytes
     
-    if($name==""){ //NO VIENE FOTO
+    //Validaciones
+    ###########################################################################
+    if($name=="" && $size==""){ //si no viene foto -> sobreescribimos todo menos la img
         
-        $sql="insert into entradas (titulo,texto,fecha,imagen,id_usuario,visible) values ('$titulo','$texto',NOW(),'upload/default-thumb.gif',$id_usuario,'$visible')";
+        $sql="update entradas set titulo='$titulo',texto='$texto',visible='$visible' where id=$id_entrada ";
         $result=  mysqli_query($link, $sql);
         if($result){
-            $mng=MNG_OK_INSERT;
+            $mng=MNG_OK_UPDATE;
             $cssError=1;
         }else{
-            $mng=MNG_KO_INSERT;
+            $mng=MNG_KO_UPDATE;
             $cssError=0;
         }
         
-        
-    }else{ //SI VIENE FOTO
-        
+    }else{ //si si viene foto -> validaciones -> preguntar si tiene carpeta -> subir img a carpeta, borrar anterior sino es la de por defecto -> update
+    
+        //Validaciones
+        ////////////////////////////////////////////////////
         if( in_array($ext,$extPermitidas) && in_array($type,$typePermitidos) && $size<=$sizeMax && $error==0 ){
             
-            $root=ROOT_USER_FILE;
-            $renameFile=$root."/".time()."_".$name;
+            $renameFile=ROOT_USER_FILE."/".time()."_".$name;
             
-            //existe carpeta user_____
-            if(file_exists($root)){ 
+            if(file_exists(ROOT_USER_FILE)){ //si existe la carpeta
+                
+                if($imagen!=DEFAULT_IMG){
+                    if(file_exists($imagen)){
+                        unlink($imagen);
+                    }
+                }
+                
                 if(move_uploaded_file($tmp_name, $renameFile)){
-                    $sql="insert into entradas (titulo,texto,fecha,imagen,id_usuario,visible) values ('$titulo','$texto',NOW(),'$renameFile',$id_usuario,'$visible')";
+                    $sql="update entradas set titulo='$titulo',texto='$texto',visible='$visible',imagen='$renameFile' where id=$id_entrada ";
                     $result=  mysqli_query($link, $sql);
                     if($result){
-                        $mng=MNG_OK_INSERT;
+                        $imagen=$renameFile;
+                        $mng=MNG_OK_UPDATE;
                         $cssError=1;
                     }else{
-                        $mng=MNG_KO_INSERT;
+                        $mng=MNG_KO_UPDATE;
+                        $cssError=0;
+                    }
+                }else{
+                    $mng="Error en la subida del fichero";
+                    $cssError=0;
+                }
+                
+            }else{//no existe la carpeta -> que no tiene entradas con fotos
+                
+                if(mkdir(ROOT_USER_FILE,0777)){
+                    
+                    if(move_uploaded_file($tmp_name, $renameFile)){
+                        $sql="update entradas set titulo='$titulo',texto='$texto',visible='$visible',imagen='$renameFile' where id=$id_entrada ";
+                        $result=  mysqli_query($link, $sql);
+                        if($result){
+                            $imagen=$renameFile;
+                            $mng=MNG_OK_UPDATE;
+                            $cssError=1;
+                        }else{
+                            $mng=MNG_KO_UPDATE;
+                            $cssError=0;
+                        }
+                    }else{
+                        $mng="Error en la subida del fichero";
                         $cssError=0;
                     }
                     
                 }else{
-                    $mng=MNG_KO_INSERT." debido a la foto";
-                    $cssError=0;
-                }
-            //no existe carpeta user___________    
-            }else{ 
-                
-                if(mkdir($root,0777)){
-                    if(move_uploaded_file($tmp_name, $renameFile)){
-                    $sql="insert into entradas (titulo,texto,fecha,imagen,id_usuario,visible) values ('$titulo','$texto',NOW(),'$renameFile',$id_usuario,'$visible')";
-                        $result=  mysqli_query($link, $sql);
-                        if($result){
-                            $mng=MNG_OK_INSERT;
-                            $cssError=1;
-                        }else{
-                            $mng=MNG_KO_INSERT;
-                            $cssError=0;
-                        }
-
-                    }else{
-                        $mng=MNG_KO_INSERT." debido a la foto";
-                        $cssError=0;
-                    }
-                }else{
-                    $mng="Error en la creación de la carpeta";
+                    $mng="Error en la creación de la carpeta de user";
                     $cssError=0;
                 }
                 
             }
             
+            
         }else{
-            $mng="La imagen no cumple los requisitos";
+            $mng="Fichero no cumple requisitos";
             $cssError=0;
         }
         
+        
     }
-    
     
 }
 
 
-//control para el texto que aparece en los inputs, si todo es correcto sobreescribo el valor de las variables para dejarlas nuevamente vacías, ya que si hay algun error las variables toman el valor que viene del formulario por el extract($_POST)
-if($cssError==1){
-    $titulo="";
-    $texto="";
+
+$checked="";
+if($visible=='no'){
+    $checked="checked";
 }
 
 ?>
 
+
 <!--Estructra------------------------>
-<?php $title="Nueva entrada"; ?>
+<?php $title="Editar entrada"; ?>
 <?php include './col/header.php'; ?>
 
-        <form action="<?=$_SERVER['PHP_SELF']?>" method="post" enctype="multipart/form-data">
+        <form action="<?=$_SERVER['PHP_SELF']?>?id_entrada=<?=$id_entrada?>" method="post" enctype="multipart/form-data">
             <label>Título</label>
             <input type="text" name="titulo" value="<?=$titulo?>"  required autofocus>
             <label>Imagen</label>
+            <img src="<?=$imagen?>" width="150">
             <input type="file" name="archivo"  >
             <label>Texto</label>
             <textarea name="texto"  class="ckeditor"><?=$texto?></textarea>
-            <input type="checkbox" name="visible"> 
+            
+            <input type="checkbox" name="visible_edit" <?=$checked?>> 
             <small>No público</small>
             
             <input type="submit" value="Guardar">

@@ -6,6 +6,11 @@
             url(../font/icons.svg) format("svg");
 }
 
+@-webkit-keyframes desaparecer{
+    0%{opacity:1}
+    75%{opacity:1}
+    100%{opacity:0}
+}
 
 /*GLOBALES
 ===============================*/
@@ -83,7 +88,6 @@ input:focus{
 
 /*MNG*/
 span[class^="mng_"]{
-    display: block;
     width: 300px;
     margin: 0 auto;
     background: #fff;
@@ -92,9 +96,12 @@ span[class^="mng_"]{
     color:#666;
     font-size: .8em;
     box-shadow: 0px 0px 20px rgba(0,0,0,.1);
+    
+    -webkit-animation: desaparecer 5s ease;
+    -webkit-animation-fill-mode: forwards;
 }
 .mng_{
-    display: none !important;
+    opacity:0;
 }
 .mng_1{
     border-left: 5px solid teal;

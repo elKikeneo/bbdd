@@ -1,6 +1,8 @@
 <?php 
 include './inc/seguridad.php'; 
 include './inc/connect.php';
+        
+include './inc/indice.php';
 
 $id_usuario=$_SESSION['id_usuario'];
 
@@ -40,10 +42,10 @@ if(isset($_GET['a'])){
             $sql="delete from entradas where id=$id_entrada";
             $result=  mysqli_query($link, $sql);
             if($result){
-                $mng="Entrada eliminada";
+                $mng=MNG_OK_DELETE;
                 $cssError=1;
             }else{
-                $mng="Error al eliminar entrada";
+                $mng=MNG_KO_DELETE;
                 $cssError=0;
             }
             break;
@@ -56,6 +58,7 @@ if(isset($_GET['a'])){
 $sql="select rol from usuarios where id=$id_usuario";
 $result=  mysqli_query($link, $sql);
 $fila=  mysqli_fetch_array($result);
+
 $rol=$fila['rol'];
 
 $condicion="where entradas.id_usuario=$id_usuario";
@@ -86,7 +89,7 @@ if( $total_entradas%$num_entradas_xpag == 0 ){
 }
 
 
-$sql="select entradas.id,entradas.titulo, entradas.texto, DATE_FORMAT(entradas.fecha, '%d-%m-%Y') as fechaMod, usuarios.nombre from entradas inner join usuarios on entradas.id_usuario=usuarios.id $condicion order by entradas.$campo $orden LIMIT $start_limit, $num_entradas_xpag";
+$sql="select entradas.id,entradas.titulo, entradas.texto, DATE_FORMAT(entradas.fecha, '%d-%m-%Y') as fechaMod, entradas.visible, usuarios.nombre from entradas inner join usuarios on entradas.id_usuario=usuarios.id $condicion order by entradas.$campo $orden LIMIT $start_limit, $num_entradas_xpag";
 $result=  mysqli_query($link, $sql);
 $nfilas=  mysqli_num_rows($result);
 ?>
@@ -128,11 +131,19 @@ $nfilas=  mysqli_num_rows($result);
                         }
                         ?>
                     <p><?= $resumen ?></p>
-                    <span><?=$fila['nombre']?> / <?=$fila['fechaMod']?></span>
+                    <span><?=$fila['nombre']?> / <?=$fila['fechaMod']?></span> / 
+                    <?php
+                    if($fila['visible']=='si'){
+                        $visible="Público";
+                    }else{
+                        $visible="No público";
+                    }
+                    ?>
+                    <span><?=$visible?></span>
                 </div>
                 <div class="col20">
                     
-                    <a href="posteditar.php" class="btn edit"></a>
+                    <a href="<?=ROOT_EDITAR?>?id_entrada=<?=$fila['id']?>" class="btn edit"></a>
                     <a href="<?=$_SERVER['PHP_SELF']?>?a=d&id_entrada=<?=$fila['id']?>" onclick="if(!confirm('¿Estás seguro que deseas eliminar el post?'))return false" class="btn delete"></a>
                     
                 </div>
@@ -141,8 +152,15 @@ $nfilas=  mysqli_num_rows($result);
         
         <!--Paginación-->
         <div class="paginacion">
-            <?php for($i=0;$i<$num_paginas;$i++){ ?>
-                <a href="<?=$_SERVER['PHP_SELF']?>?p=<?=($i+1)?>"><?=($i+1)?></a> | 
+            <?php
+            for($i=0;$i<$num_paginas;$i++){
+                if($page == ($i+1)){
+                    $classActive="active";
+                }else{
+                    $classActive="";
+                }
+                ?>
+                <a class="<?=$classActive?>" href="<?=$_SERVER['PHP_SELF']?>?p=<?=($i+1)?>"><?=($i+1)?></a> | 
             <?php } ?>
         </div>
         <!--Mensaje-->

@@ -6,7 +6,7 @@ $mng="";
 $cssError="";
 $id_usuario=$_SESSION['id_usuario'];
 
- 
+
 //Modificación de los datos tras recibir el form
 ////////////////////////////////////////////////////////////
 if(isset($_POST['formDatos'])){

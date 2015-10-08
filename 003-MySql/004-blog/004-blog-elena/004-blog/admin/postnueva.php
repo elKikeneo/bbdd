@@ -4,7 +4,7 @@ include './inc/connect.php';
 
 $id_usuario=$_SESSION['id_usuario'];
 include './inc/indice.php';
- 
+
 
 $mng="";
 $cssError="";
@@ -41,7 +41,7 @@ if($_POST){
     
     if($name==""){ //NO VIENE FOTO
         
-        $sql="insert into entradas (titulo,texto,fecha,imagen,id_usuario,visible) values ('$titulo','$texto',NOW(),'upload/default-thumb.gif',$id_usuario,'$visible')";
+        $sql="insert into entradas (titulo,texto,fecha,imagen,id_usuario,visible) values ('$titulo','$texto',NOW(),".DEFAULT_IMG.",$id_usuario,'$visible')";
         $result=  mysqli_query($link, $sql);
         if($result){
             $mng=MNG_OK_INSERT;
@@ -126,7 +126,7 @@ if($cssError==1){
 <?php include './col/header.php'; ?>
 
         <form action="<?=$_SERVER['PHP_SELF']?>" method="post" enctype="multipart/form-data">
-            <label>Título</label>
+            <label><?=TXT_LABEL_TITULO?></label>
             <input type="text" name="titulo" value="<?=$titulo?>"  required autofocus>
             <label>Imagen</label>
             <input type="file" name="archivo"  >

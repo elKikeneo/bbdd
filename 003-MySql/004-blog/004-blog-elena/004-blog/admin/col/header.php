@@ -25,6 +25,6 @@
                 
             </div>
         </header>
-         
+        
         <main>
             <h2><?=$title?></h2>

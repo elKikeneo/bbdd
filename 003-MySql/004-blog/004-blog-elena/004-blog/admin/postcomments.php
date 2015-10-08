@@ -73,7 +73,7 @@ $nfilas=  mysqli_num_rows($result);
         <div class="datos">
             <div class="col80">
                 <p><?=$fila['comentario']?> / <?=$fila['email']?> / <?=$fila['fechaMod']?></p>
-                <a href="../view.php?id=<?=$fila['id_entrada']?>">Ver entrada: Título</a>
+                <a target="_blank" href="../view.php?id=<?=$fila['id_entrada']?>">Ver entrada: <?=$fila['titulo']?></a>
             </div>
             <div class="col20">
                 <a href="<?=$_SERVER['PHP_SELF']?>?a=e&id=<?=$fila['id']?>&v=<?=$visible?>" class="btn edit"></a>

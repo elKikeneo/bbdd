@@ -2,7 +2,7 @@
 $cssError="";
 $mng="";
 if($_POST){
-     
+    
     if((isset($_POST['email']) && !empty($_POST['email']))){
         
         include './inc/connect.php';

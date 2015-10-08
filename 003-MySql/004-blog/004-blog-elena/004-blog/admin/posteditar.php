@@ -15,10 +15,7 @@ $fila=  mysqli_fetch_array($result);
 extract($fila); //$id,$titulo,$imagen,$texto,$fecha,$visible
 
 
-            
-
-
-
+ 
 if($_POST){
     //Datos de texto
     extract($_REQUEST); //$id_entrada,$titulo,$texto,$visible_edit(si la marcan)
@@ -148,7 +145,7 @@ if($visible=='no'){
 <?php include './col/header.php'; ?>
 
         <form action="<?=$_SERVER['PHP_SELF']?>?id_entrada=<?=$id_entrada?>" method="post" enctype="multipart/form-data">
-            <label>Título</label>
+            <label><?=TXT_LABEL_TITULO?></label>
             <input type="text" name="titulo" value="<?=$titulo?>"  required autofocus>
             <label>Imagen</label>
             <img src="<?=$imagen?>" width="150">

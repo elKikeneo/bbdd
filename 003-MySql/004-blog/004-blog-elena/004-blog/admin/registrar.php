@@ -31,7 +31,7 @@ if($_POST){
                 $cssError=0;
             }
         }
-         
+        
         
     }else{
         $mng="Debes rellenar todos los datos";

@@ -1,7 +1,7 @@
 <?php 
 include './inc/seguridad.php'; 
 include './inc/connect.php';
-        
+
 include './inc/indice.php';
 
 $id_usuario=$_SESSION['id_usuario'];

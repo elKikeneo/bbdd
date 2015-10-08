@@ -1,6 +1,6 @@
 <?php
 include './inc/seguridad.php';
- 
+
 $id_usuario=$_SESSION['id_usuario'];
 
 include './inc/connect.php';

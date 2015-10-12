@@ -86,14 +86,13 @@ if(isset($_GET["c"])){
         $result = mysqli_query($link, $sql);
         //4-Obtener y procesar resultados
         $nfilas = mysqli_num_rows($result);
-        
         ?>        
         <section>
             
             <?php if($nfilas>0){ ?>
             
                 <?php for($i=0;$i<$nfilas;$i++){ ?>
-                    <!--Nos ayudamos del bucle para convertui cada registro de la tabla almacenada en $result en un array asociativo-->
+                    <!--Nos ayudamos del bucle para convertir cada registro de la tabla almacenada en $result en un array asociativo-->
                     <?php $fila=mysqli_fetch_array($result) ?>
                     <article>
                         <img src="<?=$fila["foto"]?>" width="50">

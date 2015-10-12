@@ -1,20 +1,41 @@
 <?php
+session_start();
 $mng="";
-if($_POST){
-    if( (isset($_POST['email']) && !empty($_POST['email'])) && (isset($_POST['password']) && !empty($_POST['password'])) ){
-        include './inc/connect.php';
-        extract($_POST);
-        $sql="select * from usuarios where email='$email' and password='$password'";
-        
-        
-    }else{
-        $mng="Debes rellenar todos los datos";
+$cssError="";
+
+if(isset($_SESSION['id_usuario'])){
+    header("location:perfil.php");
+}else{
+    
+    if($_POST){
+        if( (isset($_POST['email']) && !empty($_POST['email'])) && (isset($_POST['password']) && !empty($_POST['password'])) ){
+            
+            include './inc/connect.php';
+            extract($_POST);
+            
+            $pass_code=sha1($password);
+            $sql="select * from usuarios where email='$email' and password='$pass_code'";
+            $result = mysqli_query($link, $sql);
+            $nfilas = mysqli_num_rows($result);
+            if($nfilas>0){
+                $fila = mysqli_fetch_array($result);
+                $_SESSION['id_usuario']=$fila['id'];
+                
+                header("location:perfil.php");
+            }else{
+                $mng = "Email o contraseña incorrectos";
+                $cssError = 0;
+            }
+
+        }else{
+            $mng="Debes rellenar todos los datos";
+            $cssError = 0;
+        }
     }
 }
-
 ?>
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -34,15 +55,12 @@ if($_POST){
                 <!--Ocultar este enlace si no queremos que nadie se registre-->
                 <a href="registrar.php">Nuevo Usuario</a> 
                 <a href="recuperar.php">¿Has olvidado tus datos?</a>
-                
-                    
+                  
             </form>
         </div>
         
         <!--Mensaje----------------------------------------------------------->
-        <span class="mng">Error</span>
-        
-        
+        <?php include './col/mng.php'; ?>
         
     </body>
 </html>

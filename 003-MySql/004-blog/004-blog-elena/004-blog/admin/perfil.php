@@ -10,7 +10,6 @@ $fila=  mysqli_fetch_array($result);
 extract($fila);
 ?>
 
-
 <!--Estructura--->
 <?php $title="Mi perfil" ?>
 <?php include './col/header.php'; ?>

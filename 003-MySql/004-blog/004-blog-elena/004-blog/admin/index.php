@@ -33,15 +33,10 @@ if(isset($_SESSION['id_usuario'])){
             $mng="Debes rellenar todos los datos";
             $cssError=0;
         }
-    }
-    
-    
+    }    
 }
-
-
-
-
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>

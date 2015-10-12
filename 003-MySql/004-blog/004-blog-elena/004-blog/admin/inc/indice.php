@@ -1,6 +1,5 @@
 <?php
 
-
 if($_GET['lang']=="es" || !isset($_GET['lang'])){
     define(MNG_OK_INSERT, "Datos guardados");
     define(MNG_KO_INSERT, "Error al guardar los datos");
@@ -20,7 +19,6 @@ if($_GET['lang']=="es" || !isset($_GET['lang'])){
     define(MNG_EMPTY_COMMENTS,"Empty comments");
     define(TXT_LABEL_TITULO,"Title");
 }
-
 
 define(ROOT_EDITAR, "posteditar.php");
 define(ROOT_USER_FILE,"upload/images_".$_SESSION['id_usuario']);

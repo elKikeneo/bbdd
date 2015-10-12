@@ -81,7 +81,7 @@ if(isset($_GET["c"])){
             $letra=$_GET['letra']; //TERMINAR CON EL DE ELENA...falta completar la variable sql siguiente...
         }
         //3-Petición Contactos
-        $sql="select contactos.* ,categorias.categoria from contactos left join categorias on contactos.id_categoria=categorias.id order by nombre asc";
+        $sql="select contactos.* ,categorias.categoria from contactos left join categorias on contactos.id_categoria=categorias.id  where contactos.nombre like '$letra%' order by nombre asc";
         $result = mysqli_query($link, $sql);
         //4-Obtener y procesar resultados
         $nfilas = mysqli_num_rows($result);
@@ -121,7 +121,9 @@ if(isset($_GET["c"])){
                         $nfilas=  mysqli_num_rows($result);
                         for($i=0; $i<$nfilas; $i++){
                             $fila=  mysqli_fetch_array($result);?>
-                        <a href="index.php?letra=<?=$letra?>"><?=mb_strtoupper($fila['letra'],"UTF-8")?></a>
+                        <a href="index.php?letra=<?=$fila['letra']?>">
+                                    <?=mb_strtoupper($fila['letra'],"UTF-8")?>
+                        </a>
                         <?php } ?>
                             <a href="index.php">Todos</a>
                     </div>

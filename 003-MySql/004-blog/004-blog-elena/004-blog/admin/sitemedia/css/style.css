@@ -121,6 +121,7 @@ div[class^="col"]{
 }
 .col80{
     width: 80%;
+    padding-left: 20px;
 }
 .col20{
     width: 20%;
@@ -270,7 +271,7 @@ main form textarea{
     font-size: 1.2em;
 }
 .edit:hover, .delete:hover{
-        text-decoration: none;
+    text-decoration: none;
 }
 .edit:hover:before, .delete:hover:before{
     color:#e60082;
